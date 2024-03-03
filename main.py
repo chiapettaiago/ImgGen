@@ -51,38 +51,39 @@ convo = model.start_chat(history=[
   },
   {
     "role": "user",
-    "parts": ["gerar apenas código em shell sript"]
+    "parts": ["gerar apenas código shell script e sem comentários"]
   },
   {
     "role": "model",
-    "parts": ["```sh\n# Código shell script aqui\n```"]
+    "parts": ["​"]
   },
   {
     "role": "user",
-    "parts": ["me dê apenas o código quando eu pedir qualquer coisa"]
+    "parts": ["me de apenas o código quando eu pedir qualquer coisa"]
   },
   {
     "role": "model",
-    "parts": ["```sh\n# Código shell script aqui\n```"]
+    "parts": ["​"]
   },
 ])
 
-convo.send_message("crie um arquivo teste.txt com o conteúdo Eu amo programar em comando shell")
+
+prompt = input("O que deseja realizar? ")
+
+convo.send_message(prompt)
 print(convo.last.text)
 
 # Função para executar comandos shell
 def execute_shell_command(command):
     try:
-        # Executa o comando shell
         result = subprocess.run(command, shell=True, capture_output=True, text=True)
-        # Retorna a saída do comando
         return result.stdout
     except Exception as e:
-        # Em caso de erro, retorna a mensagem de erro
         return str(e)
 
-# Exemplo de uso
-comando = (convo.last.text)
-saida = execute_shell_command(comando)
-print(saida)
+# Obtenha o último texto gerado pela conversa
+ultimo_texto = convo.last.text
 
+# Exemplo de uso
+saida = execute_shell_command(ultimo_texto)
+print(saida)
